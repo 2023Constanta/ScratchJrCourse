@@ -1,12 +1,10 @@
 package com.example.scratchjrcourse.features.units.presentation.adapters
 
-import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import coil.Coil
 import coil.load
 import com.example.scratchjrcourse.R
 import com.example.scratchjrcourse.databinding.ItemCourseUnitTaskDataBinding

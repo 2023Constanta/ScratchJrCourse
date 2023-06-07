@@ -15,7 +15,6 @@ import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnit
  */
 class CourseTaskAdapter(
     private val units: List<CourseUnit>,
-//    private val onTaskClick: ((courseId: Int, unitId: Int, taskId: Int) -> Unit)
     private val onTaskClick: ((id: Int, unitId: Int) -> Unit)?
 ) : RecyclerView.Adapter<CourseTaskAdapter.ViewHolder>() {
 
@@ -93,10 +92,9 @@ class UnitTasksAdapter(
                         onTaskClick?.invoke(id, unitId)
                     }
                 }
-                tvUnitTask.text = task.name ?: "BOO!"
+                tvUnitTask.text = task.name
             }
         }
     }
-
 
 }

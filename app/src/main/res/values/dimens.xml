@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="big_width">260dp</dimen>
+    <dimen name="medium_space">12dp</dimen>
+
+
     // Новое
 
     /* drawable items */
@@ -71,4 +75,6 @@
     <dimen name="padding_start_end">4dp</dimen>
     <dimen name="layout_margin_start_end">4dp</dimen>
     <dimen name="event_layout_margin">4dp</dimen>
+
+    <dimen name="large_space">30dp</dimen>
 </resources>

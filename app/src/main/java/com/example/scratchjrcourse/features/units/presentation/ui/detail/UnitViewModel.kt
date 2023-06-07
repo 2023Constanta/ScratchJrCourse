@@ -28,6 +28,9 @@ class UnitViewModel(
     private val _unitTaskData = MutableLiveData<List<CourseUnitTaskData>>()
     val unitTaskData get() = _unitTaskData
 
+
+    private val _unitTaskDataWPics = MutableLiveData<List<CourseUnitTaskData>>()
+    val unitTaskDataWPics get() = _unitTaskDataWPics
     fun getDetails(unitId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -39,37 +42,60 @@ class UnitViewModel(
         }
     }
 
-    fun loadPictureForTaskData(unitId: Int, taskId: Int, taskDataId: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-
-            }
-        }
-    }
-
-    fun getDataForTasks(unitId: Int, taskId: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val list =
-                    db.getUnitTaskDataDao().getTasksByUnitId(unitId, taskId).map { it.toDomain() }
-
-                val picture =
-                    db.getPicturesDao().getPictures(1, 1, 1)
-
-                Log.d("UNITVIM", "getDataForTasks: $picture")
-//                val list2 = mutableListOf<CourseUnitTaskData>()
-//                for (l in list) {
-//                    val picture =
-//                        db.getPicturesDao().getPictures(l.unitId, l.taskId, taskDataId = l.id)
-//                    val l1 = l.copy(pics = listOf(picture.picture))
-//                    list2.add(
-//                        l1
-//                    )
+//    fun loadPictureForTaskData(unitId: Int, taskId: Int, taskDataId: Int) {
+//        viewModelScope.launch {
+//            withContext(Dispatchers.IO) {
 //
+//            }
+//        }
+//    }
+
+//    fun getDataForTasks(unitId: Int, taskId: Int) {
+//        viewModelScope.launch {
+//            withContext(Dispatchers.IO) {
+//                val list =
+//                    db.getUnitTaskDataDao().getTasksByUnitId(unitId, taskId).map { it.toDomain() }
+////
+////                val picture =
+////                    db.getPicturesDao().getPictures(1, 1, 1)
+////
+////                Log.d("UNITVIM", "getDataForTasks: $picture")
+////                val list2 = mutableListOf<CourseUnitTaskData>()
+////                for (l in list) {
+////                    val picture =
+////                        db.getPicturesDao().getPictures(l.unitId, l.taskId, taskDataId = l.id)
+////                    val l1 = l.copy(pics = listOf(picture.picture))
+////                    list2.add(
+////                        l1
+////                    )
+////
+////                }
+//                withContext(Dispatchers.Main) {
+//                    _unitTaskData.value = list
 //                }
-                withContext(Dispatchers.Main) {
-                    _unitTaskData.value = list
+//            }
+//        }
+//    }
+
+    fun getPortionOfDataByIdOfMutual(idOfMut: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val listOfMutualData =
+                    db.getUnitTaskDataDao().getMutualTasks(idOfMut).map { it.toDomain() }
+
+                val portion = mutableListOf<CourseUnitTaskData>()
+
+                for (p in listOfMutualData) {
+                    val n = p.copy(
+                        pics = db.getPicturesDao().getPicturesByTasksData(p.id)?.map { it.picture }
+                    )
+                    portion.add(n)
                 }
+
+                withContext(Dispatchers.Main) {
+                    _unitTaskDataWPics.value = portion
+                }
+
             }
         }
     }
@@ -79,8 +105,8 @@ fun UnitTaskEntity.toDomain(): CourseUnitTask =
     CourseUnitTask(id, unitId, name)
 
 fun UnitTaskDataEntity.toDomain(): CourseUnitTaskData =
-    CourseUnitTaskData(id, unitId, taskId, text, pics = listOf())
+    CourseUnitTaskData(id, unitId, taskId, text, idOfMutual = idOfMutual, pics = listOf(), arePicsVertical = arePicsVert)
 
-//fun UnitTaskDataPictureEntity.toDomain(): Picture = Picture(
-//    id, unitId, taskId, taskDataId, picture.
-//)
+fun UnitTaskDataPictureEntity.toDomain(): Picture = Picture(
+    id, unitId, taskId, taskDataId, picture
+)

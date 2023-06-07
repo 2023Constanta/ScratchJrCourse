@@ -15,4 +15,6 @@ data class UnitTaskDataEntity(
     @ColumnInfo(name = "id_of_mutual")
     val idOfMutual: Int,
     val text: String?,
+    @ColumnInfo(name = "are_pics_vert")
+    val arePicsVert: Boolean = false
 )

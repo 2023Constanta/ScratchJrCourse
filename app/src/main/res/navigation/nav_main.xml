@@ -9,7 +9,7 @@
         android:id="@+id/unitsListFragment"
         android:name="com.example.scratchjrcourse.features.units.presentation.ui.list.UnitsListFragment"
         android:label="fragment_units_list"
-        tools:layout="@layout/fragment_units_list" >
+        tools:layout="@layout/fragment_units_list">
         <action
             android:id="@+id/action_unitsListFragment_to_unitContentFragment"
             app:destination="@id/unitContentFragment" />
@@ -18,11 +18,11 @@
         android:id="@+id/unitContentFragment"
         android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.UnitContentFragment"
         android:label="fragment_unit_content"
-        tools:layout="@layout/fragment_unit_content" >
+        tools:layout="@layout/fragment_unit_content">
         <argument
             android:name="unitId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_unitContentFragment_to_unitTaskFragment"
             app:destination="@id/unitTaskFragment" />
@@ -31,14 +31,18 @@
         android:id="@+id/unitTaskFragment"
         android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.UnitTaskFragment"
         android:label="fragment_unit_task"
-        tools:layout="@layout/fragment_unit_task" >
+        tools:layout="@layout/fragment_unit_task">
         <argument
             android:name="unitId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <argument
             android:name="taskId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.studyapp.features.profile.presentation.ui.ProfileFragment"
+        android:label="Профиль" />
 </navigation>

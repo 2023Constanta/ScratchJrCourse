@@ -8,4 +8,7 @@ import com.example.scratchjrcourse.features.units.data.room.entity.UnitTaskDataP
 interface PicturesDao {
     @Query("SELECT * FROM unit_task_data_pictures WHERE unit_id = :unitId AND task_id =:taskId AND task_data_id =:taskDataId")
     suspend fun getPictures(unitId: Int, taskId: Int, taskDataId: Int): UnitTaskDataPictureEntity
+
+    @Query("SELECT * FROM unit_task_data_pictures WHERE task_data_id =:taskDataId")
+    suspend fun getPicturesByTasksData(taskDataId: Int): List<UnitTaskDataPictureEntity>?
 }

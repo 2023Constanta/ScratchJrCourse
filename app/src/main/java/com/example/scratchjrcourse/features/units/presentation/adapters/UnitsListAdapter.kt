@@ -8,7 +8,7 @@ import com.example.scratchjrcourse.databinding.LayoutItemDefaultBinding
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnit
 
 /**
- * Адаптер доступных курсов
+ * Адаптер доступных блоков
  */
 class UnitsListAdapter(
     private val onItemClicked: (id: Int) -> Unit
@@ -38,7 +38,6 @@ class UnitsListAdapter(
             }
         }
     }
-
 
     class ViewHolder(val binding: LayoutItemDefaultBinding) : RecyclerView.ViewHolder(binding.root)
 }

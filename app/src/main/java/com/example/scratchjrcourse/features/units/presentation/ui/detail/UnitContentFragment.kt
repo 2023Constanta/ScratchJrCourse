@@ -15,9 +15,9 @@ import com.example.scratchjrcourse.databinding.FragmentUnitContentBinding
 import com.example.scratchjrcourse.features.units.presentation.adapters.UnitTasksAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 /**
- * Экран содержания раздела. Показывается задания, на которые можно перейти по нажатии.
- * Или же начать раздела...
+ * Экран содержания раздела
  */
 class UnitContentFragment : Fragment() {
 
