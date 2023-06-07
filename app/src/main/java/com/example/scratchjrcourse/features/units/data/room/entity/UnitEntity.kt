@@ -1,4 +1,4 @@
-package com.example.scratchjrcourse.features.units.data.room
+package com.example.scratchjrcourse.features.units.data.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

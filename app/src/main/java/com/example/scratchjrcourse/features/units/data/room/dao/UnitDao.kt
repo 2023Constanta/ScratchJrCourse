@@ -1,7 +1,8 @@
-package com.example.scratchjrcourse.features.units.data.room
+package com.example.scratchjrcourse.features.units.data.room.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.example.scratchjrcourse.features.units.data.room.entity.UnitEntity
 
 @Dao
 interface UnitDao {
