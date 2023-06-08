@@ -37,39 +37,31 @@ class UnitTaskFragment : Fragment() {
 
         Log.d(TAG, "args: ${args.unitId}, ${args.taskId}")
 
-        // 1. Получ. кол-ва экранов
-        unitViewModel.getCountOfScreens(args.unitId, args.taskId)
-        unitViewModel.getMinIndexOfMutual(args.unitId, args.taskId)
-
-        var minInd = 0
-
-        // Идет получение минимального индекса
-        unitViewModel.minIndexOfMutual.observe(viewLifecycleOwner) {
-            minInd = it
-        }
+        // 1. Получ. индексов
+        unitViewModel.getListIndOfMutual(args.unitId, args.taskId)
 
         // 2. Создаются экраны
-        unitViewModel.countOfScreens.observe(viewLifecycleOwner) {
-            var fragmentsList =  mutableListOf<Fragment>()
-            fragmentsList = MutableList(it) {
+        unitViewModel.listOfIndOfMutual.observe(viewLifecycleOwner) { ind ->
+            val fragmentsList: MutableList<Fragment> = MutableList(ind.size) {
                 val fragment = UnitPortionFragment()
                 fragment.arguments = bundleOf(
                     "unitId" to args.unitId,
                     "taskId" to args.taskId,
-                    "mutualId" to it+minInd
+                    "mutualId" to ind[it]
                 )
                 fragment
             }
+
             Log.d(TAG, "size of list of fragments: ${fragmentsList.size}")
             adapter = UnitTaskCarouselAdapter(
                 fragments = fragmentsList,
                 requireActivity()
             )
+
             // 3. Прикрепляются
             binding?.wpCourseUnitTasks?.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
             binding?.wpCourseUnitTasks?.adapter = adapter
         }
-
 
         binding?.btnNextUnit?.setOnClickListener {
             var currPage = binding?.wpCourseUnitTasks?.currentItem

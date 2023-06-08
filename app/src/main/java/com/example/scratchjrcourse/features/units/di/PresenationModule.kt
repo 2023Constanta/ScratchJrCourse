@@ -1,5 +1,6 @@
 package com.example.scratchjrcourse.features.units.di
 
+import com.example.scratchjrcourse.features.units.presentation.ui.detail.UnitPortionViewModel
 import com.example.scratchjrcourse.features.units.presentation.ui.detail.UnitViewModel
 import com.example.scratchjrcourse.features.units.presentation.ui.list.UnitsListFragment
 import com.example.scratchjrcourse.features.units.presentation.ui.list.UnitsListViewModel
@@ -15,6 +16,12 @@ val presentationModule = module {
 
     viewModel {
         UnitViewModel(
+            get()
+        )
+    }
+
+    viewModel {
+        UnitPortionViewModel(
             get()
         )
     }
