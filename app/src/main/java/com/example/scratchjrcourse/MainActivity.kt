@@ -15,10 +15,15 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.scratchjrcourse.databinding.ActivityMainBinding
 import com.example.scratchjrcourse.features.units.presentation.ui.detail.UnitViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
     private val unitViewModel: UnitViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -27,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = Firebase.auth
 
         Log.d(TAG, "onCreate: $unitViewModel")
 
@@ -57,6 +64,11 @@ class MainActivity : AppCompatActivity() {
         botNavView.setupWithNavController(navController)
     }
 
+    override fun onStart() {
+        super.onStart()
+        setupStartDest()
+    }
+
     override fun onBackPressed() {
         when (navController.currentDestination?.id) {
             R.id.unitsListFragment -> {
@@ -64,6 +76,18 @@ class MainActivity : AppCompatActivity() {
             }
 
             else -> super.onBackPressed()
+        }
+    }
+
+    private fun setupStartDest() {
+        val user = auth.currentUser
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_main)
+        navController
+
+        if (user != null) {
+            navGraph.setStartDestination(R.id.unitsListFragment)
+        } else {
+            navGraph.setStartDestination(R.id.authFragment)
         }
     }
 

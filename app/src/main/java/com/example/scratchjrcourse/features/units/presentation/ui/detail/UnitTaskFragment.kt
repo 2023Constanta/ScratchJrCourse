@@ -38,25 +38,28 @@ class UnitTaskFragment : Fragment() {
 
         Log.d(TAG, "onViewCreated: ${args.unitId}, ${args.taskId}")
 
-        val fragmentsList = List<Fragment>(1) { UnitPortionFragment() }
-//        unitViewModel.getCountOfScreens(args.unitId)
-//        var fragmentsList = listOf<Fragment>()
-//        unitViewModel.count.observe(viewLifecycleOwner) {
-//            fragmentsList = List<Fragment>(it) { UnitPortionFragment() }
+//        val fragmentsList = List<Fragment>(1) { UnitPortionFragment() }
+        unitViewModel.getCountOfScreens(args.unitId)
+        var fragmentsList = mutableListOf<Fragment>()
+        unitViewModel.count.observe(viewLifecycleOwner) {
+            fragmentsList = MutableList<Fragment>(it) { UnitPortionFragment() }
 //        }
 
-        Log.d(TAG, "onViewCreated: ${fragmentsList.size}")
+            Log.d(TAG, "onViewCreated: ${fragmentsList.size}")
 
-        adapter = UnitTaskCarouselAdapter(
-            fragments = fragmentsList,
-            requireActivity()
-        )
+            adapter = UnitTaskCarouselAdapter(
+                fragments = fragmentsList,
+                requireActivity()
+            )
 
-        binding.wpCourseUnitTasks.adapter = adapter
+            binding.wpCourseUnitTasks.adapter = adapter
+        }
     }
 
-    companion object {
-        private val TAG = this::class.java.simpleName
-    }
+        companion object {
+            private val TAG = this::class.java.simpleName
+        }
+
+
 
 }

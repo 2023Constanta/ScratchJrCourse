@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.scratchjrcourse.R
 import com.example.scratchjrcourse.databinding.ItemCourseUnitTaskDataBinding
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTaskData
@@ -43,10 +45,17 @@ class UnitTaskDataAdapter : RecyclerView.Adapter<UnitTaskDataAdapter.ViewHolder>
                 }
 
                 if (unitTaskData.pics?.isNotEmpty() == true) {
-                    for (picId in unitTaskData.pics) {
-
-                    }
+//                    for (picId in unitTaskData.pics) {
+//
+//                    }
+//                    Glide.with(binding.root.context)
+//                        .load(unitTaskData.pics[0])
+//                        .diskCacheStrategy(DiskCacheStrategy.DATA)
+//                        .skipMemoryCache(false)
+//                        .dontAnimate()
+//                        .into(binding.ivTaskDataPicOne)
                     ivTaskDataPicOne.load(unitTaskData.pics[0])
+
 //                    ivTaskDataPicTwo.load(unitTaskData.pics[1])
                     tvTaskDataText.text = unitTaskData.text
 //                        ivTaskDataPicOne.setImageResource(picId ?: 0)

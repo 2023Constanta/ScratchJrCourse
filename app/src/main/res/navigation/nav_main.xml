@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/unitsListFragment">
+    app:startDestination="@id/authFragment">
 
     <fragment
         android:id="@+id/unitsListFragment"
@@ -45,4 +45,12 @@
         android:id="@+id/profileFragment"
         android:name="com.example.studyapp.features.profile.presentation.ui.ProfileFragment"
         android:label="Профиль" />
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.studyapp.features.auth.presentation.ui.AuthFragment"
+        android:label="AuthFragment" >
+        <action
+            android:id="@+id/action_authFragment_to_unitsListFragment"
+            app:destination="@id/unitsListFragment" />
+    </fragment>
 </navigation>

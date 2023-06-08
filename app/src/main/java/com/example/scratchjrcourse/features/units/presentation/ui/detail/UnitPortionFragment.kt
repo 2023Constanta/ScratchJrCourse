@@ -38,29 +38,30 @@ class UnitPortionFragment : Fragment() {
         Log.d(TAG, "onViewCreated: $fragId")
 
         if (fragId != null) {
-            unitViewModel.getPortionOfDataByIdOfMutual(15)
+            unitViewModel.getPortionOfDataByIdOfMutual(fragId.plus(1))
+//            unitViewModel.getPortionOfDataByIdOfMutual(15)
 
-//            binding.rvPortion.layoutManager = LinearLayoutManager(activity)
+            binding.rvPortion.layoutManager = LinearLayoutManager(activity)
 
-            binding.rvPortion.visibility = View.GONE
-
-            binding.clQuestion.visibility = View.VISIBLE
+//            binding.rvPortion.visibility = View.GONE
+//
+//            binding.clQuestion.visibility = View.VISIBLE
 
             unitViewModel.unitTaskDataWPics.observe(requireActivity()) {
-                with(binding.clQuestion) {
-                    val ad = it.first()
-                    binding.ivQuestionPic.load(R.drawable.pic2)
-                    binding.tvQuestionText.text = ad.text
+//                with(binding.clQuestion) {
+//                    val ad = it.first()
+//                    binding.ivQuestionPic.load(R.drawable.pic2)
+//                    binding.tvQuestionText.text = ad.text
 //                    binding.
-                }
-                Log.d(TAG, "onViewCreated: $it")
                 adapter.unitTaskData = it
+                }
+//                Log.d(TAG, "onViewCreated: $it")
             }
 
             binding.rvPortion.adapter = adapter
 
         }
-    }
+//    }
 
     companion object {
         private val TAG = this::class.java.simpleName
