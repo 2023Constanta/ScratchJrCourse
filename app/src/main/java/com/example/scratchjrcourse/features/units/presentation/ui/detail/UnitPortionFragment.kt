@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
+import com.example.scratchjrcourse.R
 import com.example.scratchjrcourse.databinding.FragmentUnitPortionBinding
 import com.example.scratchjrcourse.features.units.presentation.adapters.UnitTaskDataAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -36,12 +38,21 @@ class UnitPortionFragment : Fragment() {
         Log.d(TAG, "onViewCreated: $fragId")
 
         if (fragId != null) {
-            unitViewModel.getPortionOfDataByIdOfMutual(fragId + 1)
+            unitViewModel.getPortionOfDataByIdOfMutual(15)
 
-            binding.rvPortion.layoutManager = LinearLayoutManager(activity)
+//            binding.rvPortion.layoutManager = LinearLayoutManager(activity)
 
+            binding.rvPortion.visibility = View.GONE
+
+            binding.clQuestion.visibility = View.VISIBLE
 
             unitViewModel.unitTaskDataWPics.observe(requireActivity()) {
+                with(binding.clQuestion) {
+                    val ad = it.first()
+                    binding.ivQuestionPic.load(R.drawable.pic2)
+                    binding.tvQuestionText.text = ad.text
+//                    binding.
+                }
                 Log.d(TAG, "onViewCreated: $it")
                 adapter.unitTaskData = it
             }

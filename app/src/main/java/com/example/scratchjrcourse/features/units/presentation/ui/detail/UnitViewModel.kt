@@ -28,6 +28,9 @@ class UnitViewModel(
     private val _unitTaskData = MutableLiveData<List<CourseUnitTaskData>>()
     val unitTaskData get() = _unitTaskData
 
+    private val _count = MutableLiveData<Int>()
+    val count get() = _count
+
 
     private val _unitTaskDataWPics = MutableLiveData<List<CourseUnitTaskData>>()
     val unitTaskDataWPics get() = _unitTaskDataWPics
@@ -99,13 +102,31 @@ class UnitViewModel(
             }
         }
     }
+
+    fun getCountOfScreens(unitId: Int) =
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val count = db.getUnitTaskDataDao().getCountOfCountOfMutualTasks(unitId)
+                withContext(Dispatchers.Main) {
+                    _count.value = count
+                }
+            }
+        }
 }
 
 fun UnitTaskEntity.toDomain(): CourseUnitTask =
     CourseUnitTask(id, unitId, name)
 
 fun UnitTaskDataEntity.toDomain(): CourseUnitTaskData =
-    CourseUnitTaskData(id, unitId, taskId, text, idOfMutual = idOfMutual, pics = listOf(), arePicsVertical = arePicsVert)
+    CourseUnitTaskData(
+        id,
+        unitId,
+        taskId,
+        text,
+        idOfMutual = idOfMutual,
+        pics = listOf(),
+        arePicsVertical = arePicsVert
+    )
 
 fun UnitTaskDataPictureEntity.toDomain(): Picture = Picture(
     id, unitId, taskId, taskDataId, picture

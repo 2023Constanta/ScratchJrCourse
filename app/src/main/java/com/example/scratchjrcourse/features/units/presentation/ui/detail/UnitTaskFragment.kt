@@ -38,8 +38,12 @@ class UnitTaskFragment : Fragment() {
 
         Log.d(TAG, "onViewCreated: ${args.unitId}, ${args.taskId}")
 
-        val fragmentsList = List<Fragment>(3) { UnitPortionFragment() }
-//        val fragmentsList = List<Fragment>(unitViewModel.getCountOfScreens()) { UnitPortionFragment() }
+        val fragmentsList = List<Fragment>(1) { UnitPortionFragment() }
+//        unitViewModel.getCountOfScreens(args.unitId)
+//        var fragmentsList = listOf<Fragment>()
+//        unitViewModel.count.observe(viewLifecycleOwner) {
+//            fragmentsList = List<Fragment>(it) { UnitPortionFragment() }
+//        }
 
         Log.d(TAG, "onViewCreated: ${fragmentsList.size}")
 

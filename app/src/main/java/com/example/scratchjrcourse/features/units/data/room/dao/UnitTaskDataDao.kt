@@ -14,4 +14,7 @@ interface UnitTaskDataDao {
 
     @Query("SELECT * FROM unit_task_data WHERE id_of_mutual = :idOfMutual")
     suspend fun getMutualTasks(idOfMutual: Int): List<UnitTaskDataEntity>
+
+    @Query("SELECT COUNT (DISTINCT id_of_mutual) FROM unit_task_data WHERE unit_id =:unitId")
+    suspend fun getCountOfCountOfMutualTasks(unitId: Int): Int
 }
