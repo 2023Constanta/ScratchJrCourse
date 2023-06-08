@@ -43,7 +43,6 @@ class UnitsListFragment : Fragment() {
 
         viewModel.units.observe(viewLifecycleOwner) {
             adapter.units = it
-            Log.d("UnitsFrag", "onViewCreated: ${it}")
             viewBinding.rvTasks.adapter = adapter
         }
     }

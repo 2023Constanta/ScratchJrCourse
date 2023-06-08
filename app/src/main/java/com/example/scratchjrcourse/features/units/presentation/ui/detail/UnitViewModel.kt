@@ -11,7 +11,6 @@ import com.example.scratchjrcourse.features.units.data.room.entity.UnitTaskEntit
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTask
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTaskData
 import com.example.scratchjrcourse.features.units.domain.domain.model.Picture
-import com.example.scratchjrcourse.features.units.presentation.ui.list.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,19 +21,24 @@ import kotlinx.coroutines.withContext
 class UnitViewModel(
     private val db: AppDb
 ) : ViewModel() {
+    // Задания блока
     private val _unitTasks = MutableLiveData<List<CourseUnitTask>>()
     val unitTasks get() = _unitTasks
 
-    private val _unitTaskData = MutableLiveData<List<CourseUnitTaskData>>()
-    val unitTaskData get() = _unitTaskData
+    // Количество экранов
+    private val _countOfScreens = MutableLiveData<Int>()
+    val countOfScreens get() = _countOfScreens
 
-    private val _count = MutableLiveData<Int>()
-    val count get() = _count
-
-
+    // Задания курса с картинками
     private val _unitTaskDataWPics = MutableLiveData<List<CourseUnitTaskData>>()
     val unitTaskDataWPics get() = _unitTaskDataWPics
-    fun getDetails(unitId: Int) {
+
+    // Минимальный индекс
+    private var _minIndexOfMutual = MutableLiveData<Int>()
+    val minIndexOfMutual get() = _minIndexOfMutual
+
+    // Получение деталей блока
+    fun getDetailsOfUnit(unitId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val list = db.getUnitTaskDao().getTasksByUnitId(unitId).map { it.toDomain() }
@@ -45,46 +49,30 @@ class UnitViewModel(
         }
     }
 
-//    fun loadPictureForTaskData(unitId: Int, taskId: Int, taskDataId: Int) {
-//        viewModelScope.launch {
-//            withContext(Dispatchers.IO) {
-//
-//            }
-//        }
-//    }
+    // Получение минимального индекса для заданий блока
+    fun getMinIndexOfMutual(unitId: Int, taskId: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val temp = db
+                    .getUnitTaskDataDao()
+                    .getMinIndexOfMutualBy(unitId, taskId)
 
-//    fun getDataForTasks(unitId: Int, taskId: Int) {
-//        viewModelScope.launch {
-//            withContext(Dispatchers.IO) {
-//                val list =
-//                    db.getUnitTaskDataDao().getTasksByUnitId(unitId, taskId).map { it.toDomain() }
-////
-////                val picture =
-////                    db.getPicturesDao().getPictures(1, 1, 1)
-////
-////                Log.d("UNITVIM", "getDataForTasks: $picture")
-////                val list2 = mutableListOf<CourseUnitTaskData>()
-////                for (l in list) {
-////                    val picture =
-////                        db.getPicturesDao().getPictures(l.unitId, l.taskId, taskDataId = l.id)
-////                    val l1 = l.copy(pics = listOf(picture.picture))
-////                    list2.add(
-////                        l1
-////                    )
-////
-////                }
-//                withContext(Dispatchers.Main) {
-//                    _unitTaskData.value = list
-//                }
-//            }
-//        }
-//    }
+                Log.d("UnitViewModel", "getMinIndexOfMutual: $temp")
 
-    fun getPortionOfDataByIdOfMutual(idOfMut: Int) {
+                withContext(Dispatchers.Main) {
+                    _minIndexOfMutual.value = temp
+                }
+            }
+        }
+    }
+
+    // Получение данных для задания блока
+    fun getPortionOfDataByIdOfMutual(idOfMut: Int, unitId: Int = 0, taskId: Int = 0) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val listOfMutualData =
-                    db.getUnitTaskDataDao().getMutualTasks(idOfMut).map { it.toDomain() }
+                    db.getUnitTaskDataDao()
+                        .getMutualTasks(idOfMut, taskId, unitId).map { it.toDomain() }
 
                 val portion = mutableListOf<CourseUnitTaskData>()
 
@@ -103,12 +91,13 @@ class UnitViewModel(
         }
     }
 
-    fun getCountOfScreens(unitId: Int) =
+    // Получение кол-ва экранов для карусели
+    fun getCountOfScreens(unitId: Int, taskId: Int) =
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val count = db.getUnitTaskDataDao().getCountOfCountOfMutualTasks(unitId)
+                val count = db.getUnitTaskDataDao().getCountOfMutualTasks(unitId, taskId)
                 withContext(Dispatchers.Main) {
-                    _count.value = count
+                    _countOfScreens.value = count
                 }
             }
         }

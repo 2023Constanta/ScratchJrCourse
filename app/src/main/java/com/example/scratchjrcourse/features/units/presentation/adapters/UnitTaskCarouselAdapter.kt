@@ -17,8 +17,6 @@ class UnitTaskCarouselAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = fragments[position]
-        fragment.arguments = bundleOf("frag_id" to position)
-        return fragment
+        return fragments[position]
     }
 }

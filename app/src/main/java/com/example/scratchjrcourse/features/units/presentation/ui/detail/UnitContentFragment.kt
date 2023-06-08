@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.scratchjrcourse.databinding.FragmentUnitContentBinding
 import com.example.scratchjrcourse.features.units.presentation.adapters.UnitTasksAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Экран содержания раздела
@@ -37,20 +34,21 @@ class UnitContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        unitViewModel.getDetails(args.unitId)
+        unitViewModel.getDetailsOfUnit(args.unitId)
 
         Log.d(TAG, "onCreate: $unitViewModel")
 
         unitViewModel.unitTasks.observe(viewLifecycleOwner) {
             viewBinding.rvCourseContent.layoutManager = LinearLayoutManager(activity)
-            unitContentAdapter = UnitTasksAdapter(it) { id, unitId ->
+            // При нажатии на задание блока происходить переход на экран с каруселью данных
+            // ТОЛЬКО этого задания
+            unitContentAdapter = UnitTasksAdapter(it) { unitId, taksId ->
                 findNavController().navigate(
                     UnitContentFragmentDirections.actionUnitContentFragmentToUnitTaskFragment(
-                        id,
-                        unitId
+                        unitId,
+                        taksId
                     )
                 )
-//                Log.d("UnitContent", "onViewCreated: $id $unitId")
             }
             viewBinding.rvCourseContent.adapter = unitContentAdapter
         }

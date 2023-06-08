@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        Log.d(TAG, "onCreate: $unitViewModel")
 
         val botNavView: BottomNavigationView = binding.bottomNavigation
 

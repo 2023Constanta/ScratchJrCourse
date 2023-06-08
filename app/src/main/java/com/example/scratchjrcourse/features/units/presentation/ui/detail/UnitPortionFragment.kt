@@ -34,37 +34,33 @@ class UnitPortionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fragId = arguments?.getInt("frag_id")
-        Log.d(TAG, "onViewCreated: $fragId")
+        // 1. Получение unitId AND taskId
+        val unitId = arguments?.getInt("unitId")
+        val taskId = arguments?.getInt("taskId")
+        val mutualId = arguments?.getInt("mutualId")
 
-        if (fragId != null) {
-            unitViewModel.getPortionOfDataByIdOfMutual(fragId.plus(1))
-//            unitViewModel.getPortionOfDataByIdOfMutual(15)
+        // Логи
+        Log.d(TAG, "onViewCreated: unitId = $unitId")
+        Log.d(TAG, "onViewCreated: taskId = $taskId")
+        Log.d(TAG, "onViewCreated: mutualId = $mutualId")
 
-            binding.rvPortion.layoutManager = LinearLayoutManager(activity)
+        // 2. Получение индекст мумуал по unitId AND taskId
 
-//            binding.rvPortion.visibility = View.GONE
-//
-//            binding.clQuestion.visibility = View.VISIBLE
+        unitViewModel.getPortionOfDataByIdOfMutual(
+            idOfMut = mutualId!!,
+            unitId = unitId!!,
+            taskId = taskId!!
+        )
 
-            unitViewModel.unitTaskDataWPics.observe(requireActivity()) {
-//                with(binding.clQuestion) {
-//                    val ad = it.first()
-//                    binding.ivQuestionPic.load(R.drawable.pic2)
-//                    binding.tvQuestionText.text = ad.text
-//                    binding.
-                adapter.unitTaskData = it
-                }
-//                Log.d(TAG, "onViewCreated: $it")
-            }
-
-            binding.rvPortion.adapter = adapter
-
+        binding.rvPortion.layoutManager = LinearLayoutManager(activity)
+        unitViewModel.unitTaskDataWPics.observe(requireActivity()) {
+            adapter.unitTaskData = it
         }
-//    }
+        binding.rvPortion.adapter = adapter
+    }
 
     companion object {
-        private val TAG = this::class.java.simpleName
+        private val TAG = "UnitPortionFragment"
     }
 
 }
