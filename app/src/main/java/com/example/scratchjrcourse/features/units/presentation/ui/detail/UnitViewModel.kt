@@ -10,7 +10,6 @@ import com.example.scratchjrcourse.features.units.data.room.entity.UnitTaskDataP
 import com.example.scratchjrcourse.features.units.data.room.entity.UnitTaskEntity
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTask
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTaskData
-import com.example.scratchjrcourse.features.units.domain.domain.model.Picture
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -116,7 +115,3 @@ fun UnitTaskDataEntity.toDomain(): CourseUnitTaskData =
         pics = listOf(),
         arePicsVertical = arePicsVert
     )
-
-fun UnitTaskDataPictureEntity.toDomain(): Picture = Picture(
-    id, unitId, taskId, taskDataId, picture
-)

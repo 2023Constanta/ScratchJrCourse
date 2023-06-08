@@ -6,15 +6,15 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "unit_task_data")
 data class UnitTaskDataEntity(
-    @PrimaryKey
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     @ColumnInfo(name = "unit_id")
     val unitId: Int,
     @ColumnInfo(name = "task_id")
     val taskId: Int,
     @ColumnInfo(name = "id_of_mutual")
     val idOfMutual: Int,
-    val text: String?,
+    val text: String,
     @ColumnInfo(name = "are_pics_vert")
     val arePicsVert: Boolean = false
 )

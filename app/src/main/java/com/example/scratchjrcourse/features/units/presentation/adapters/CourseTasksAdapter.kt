@@ -89,7 +89,7 @@ class UnitTasksAdapter(
             binding.apply {
                 tvUnitTask.setOnClickListener {
                     with(task) {
-                        onTaskClick?.invoke(id, unitId)
+                        onTaskClick?.invoke(unitId, id)
                     }
                 }
                 tvUnitTask.text = task.name

@@ -35,18 +35,15 @@ class UnitContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         unitViewModel.getDetailsOfUnit(args.unitId)
-
-        Log.d(TAG, "onCreate: $unitViewModel")
-
         unitViewModel.unitTasks.observe(viewLifecycleOwner) {
             viewBinding.rvCourseContent.layoutManager = LinearLayoutManager(activity)
             // При нажатии на задание блока происходить переход на экран с каруселью данных
             // ТОЛЬКО этого задания
-            unitContentAdapter = UnitTasksAdapter(it) { unitId, taksId ->
+            unitContentAdapter = UnitTasksAdapter(it) { unitId, taskId ->
                 findNavController().navigate(
                     UnitContentFragmentDirections.actionUnitContentFragmentToUnitTaskFragment(
                         unitId,
-                        taksId
+                        taskId
                     )
                 )
             }

@@ -11,5 +11,4 @@ data class UnitTaskEntity(
     @ColumnInfo(name = "unit_id")
     val unitId: Int,
     val name: String
-) {
-}
+)

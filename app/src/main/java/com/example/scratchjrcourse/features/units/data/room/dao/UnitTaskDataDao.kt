@@ -9,9 +9,6 @@ interface UnitTaskDataDao {
     @Query("SELECT * FROM unit_task_data WHERE unit_id = :unitId AND task_id = :taskId")
     suspend fun getTasksByUnitId(unitId: Int, taskId: Int): List<UnitTaskDataEntity>
 
-    @Query("SELECT * FROM unit_task_data")
-    suspend fun getTasks(): List<UnitTaskDataEntity>
-
     @Query("SELECT * FROM unit_task_data WHERE id_of_mutual = :idOfMutual")
     suspend fun getMutualTasks(idOfMutual: Int): List<UnitTaskDataEntity>
 

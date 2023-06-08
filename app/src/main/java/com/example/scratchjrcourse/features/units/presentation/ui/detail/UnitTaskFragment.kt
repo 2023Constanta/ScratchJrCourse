@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.widget.ViewPager2
 import com.example.scratchjrcourse.databinding.FragmentUnitTaskBinding
 import com.example.scratchjrcourse.features.units.presentation.adapters.UnitTaskCarouselAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -19,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class UnitTaskFragment : Fragment() {
 
     private val args: UnitTaskFragmentArgs by navArgs()
-    private lateinit var binding: FragmentUnitTaskBinding
+    private var binding: FragmentUnitTaskBinding? = null
     private val unitViewModel: UnitViewModel by sharedViewModel()
     private lateinit var adapter: UnitTaskCarouselAdapter
 
@@ -28,7 +29,7 @@ class UnitTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUnitTaskBinding.inflate(layoutInflater)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,33 +66,47 @@ class UnitTaskFragment : Fragment() {
                 requireActivity()
             )
             // 3. Прикрепляются
-            binding.wpCourseUnitTasks.adapter = adapter
+            binding?.wpCourseUnitTasks?.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
+            binding?.wpCourseUnitTasks?.adapter = adapter
         }
 
 
-        binding.btnNextUnit.setOnClickListener {
-            var currPage = binding.wpCourseUnitTasks.currentItem
+        binding?.btnNextUnit?.setOnClickListener {
+            var currPage = binding?.wpCourseUnitTasks?.currentItem
             var countOfPages =
-                (binding.wpCourseUnitTasks.adapter as UnitTaskCarouselAdapter).itemCount
+                (binding?.wpCourseUnitTasks?.adapter as UnitTaskCarouselAdapter).itemCount
 
-            var nextPage = currPage + 1
-            if (nextPage >= countOfPages) {
-                nextPage = 0
+            var nextPage = currPage?.plus(1)
+            if (nextPage != null) {
+                if (nextPage >= countOfPages) {
+                    nextPage = 0
+                }
             }
-            binding.wpCourseUnitTasks.setCurrentItem(nextPage, true)
+            if (nextPage != null) {
+                binding?.wpCourseUnitTasks?.setCurrentItem(nextPage, true)
+            }
         }
 
-        binding.btnPrevUnit.setOnClickListener {
-            var currPage = binding.wpCourseUnitTasks.currentItem
+        binding?.btnPrevUnit?.setOnClickListener {
+            var currPage = binding?.wpCourseUnitTasks?.currentItem
             var countOfPages =
-                (binding.wpCourseUnitTasks.adapter as UnitTaskCarouselAdapter).itemCount
+                (binding?.wpCourseUnitTasks?.adapter as UnitTaskCarouselAdapter).itemCount
 
-            var prevPage = currPage - 1
-            if (prevPage < 0) {
-                prevPage = countOfPages - 1
+            var prevPage = currPage?.minus(1)
+            if (prevPage != null) {
+                if (prevPage < 0) {
+                    prevPage = countOfPages - 1
+                }
             }
-            binding.wpCourseUnitTasks.setCurrentItem(prevPage, true)
+            if (prevPage != null) {
+                binding?.wpCourseUnitTasks!!.setCurrentItem(prevPage, true)
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     companion object {
