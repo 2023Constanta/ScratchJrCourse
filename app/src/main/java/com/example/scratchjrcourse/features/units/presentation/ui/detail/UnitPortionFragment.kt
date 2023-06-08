@@ -12,6 +12,7 @@ import com.example.scratchjrcourse.R
 import com.example.scratchjrcourse.databinding.FragmentUnitPortionBinding
 import com.example.scratchjrcourse.features.units.presentation.adapters.UnitTaskDataAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Экран-элемент карусели. Показывает порцию данных, получает их по id mutual
@@ -54,7 +55,9 @@ class UnitPortionFragment : Fragment() {
 
         binding.rvPortion.layoutManager = LinearLayoutManager(activity)
         unitViewModel.unitTaskDataWPics.observe(requireActivity()) {
-            adapter.unitTaskData = it
+            if (it != null) {
+                adapter.unitTaskData = it
+            }
         }
         binding.rvPortion.adapter = adapter
     }

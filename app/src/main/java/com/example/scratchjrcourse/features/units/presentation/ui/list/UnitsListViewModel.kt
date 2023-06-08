@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.scratchjrcourse.features.units.data.room.AppDb
 import com.example.scratchjrcourse.features.units.data.room.entity.UnitEntity
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnit
+import com.example.scratchjrcourse.features.units.domain.domain.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,6 +29,3 @@ class UnitsListViewModel(
     }
 
 }
-
-fun UnitEntity.toDomain(): CourseUnit =
-    CourseUnit(id, name, description)
