@@ -42,7 +42,7 @@ class UnitsListFragment : Fragment() {
         viewModel.getUnits()
 
         viewModel.units.observe(viewLifecycleOwner) {
-            adapter.units = it
+            adapter.setUnits(it)
             viewBinding.rvTasks.adapter = adapter
         }
     }

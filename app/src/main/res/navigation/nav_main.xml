@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/unitContentFragment"
-        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.UnitContentFragment"
+        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.content.UnitContentFragment"
         android:label="fragment_unit_content"
         tools:layout="@layout/fragment_unit_content">
         <argument
@@ -26,10 +26,13 @@
         <action
             android:id="@+id/action_unitContentFragment_to_unitTaskFragment"
             app:destination="@id/unitTaskFragment" />
+        <action
+            android:id="@+id/action_unitContentFragment_to_taskQuestionFragment"
+            app:destination="@id/taskQuestionFragment" />
     </fragment>
     <fragment
         android:id="@+id/unitTaskFragment"
-        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.UnitTaskFragment"
+        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.data.UnitTaskFragment"
         android:label="fragment_unit_task"
         tools:layout="@layout/fragment_unit_task">
         <argument
@@ -52,5 +55,22 @@
         <action
             android:id="@+id/action_authFragment_to_unitsListFragment"
             app:destination="@id/unitsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskQuestionFragment"
+        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.quest.TaskQuestionFragment"
+        android:label="fragment_task_question"
+        tools:layout="@layout/fragment_task_question" >
+        <argument
+            android:name="unitId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="taskId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="isQuest"
+            app:argType="boolean" />
     </fragment>
 </navigation>

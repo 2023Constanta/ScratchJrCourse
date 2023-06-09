@@ -10,5 +10,7 @@ data class CourseUnitTaskData(
     val text: String,
     val pics: List<ByteArray>?,
     val idOfMutual: Int,
-    val arePicsVertical: Boolean? = false
+    val arePicsVertical: Boolean? = false,
+    val isQuestion: Boolean,
+    val answerText: String?
 )

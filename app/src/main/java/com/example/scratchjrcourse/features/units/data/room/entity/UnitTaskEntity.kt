@@ -10,5 +10,7 @@ data class UnitTaskEntity(
     val id: Int,
     @ColumnInfo(name = "unit_id")
     val unitId: Int,
-    val name: String
+    val name: String,
+    @ColumnInfo(name = "is_quest")
+    val isQuestion: Boolean
 )

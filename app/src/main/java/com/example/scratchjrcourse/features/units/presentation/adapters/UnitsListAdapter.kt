@@ -14,7 +14,7 @@ class UnitsListAdapter(
     private val onItemClicked: (id: Int) -> Unit
 ) : RecyclerView.Adapter<UnitsListAdapter.ViewHolder>() {
 
-    var units: List<CourseUnit> = mutableListOf()
+    private var list: MutableList<CourseUnit> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
@@ -24,19 +24,25 @@ class UnitsListAdapter(
             )
         )
 
-    override fun getItemCount(): Int = units.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding) {
-            with(units[position]) {
+            with(list[position]) {
                 tvName.text = name
                 tvDescription.text = description
 
                 tvName.setOnClickListener {
-                    onItemClicked.invoke(units[position].id)
+                    onItemClicked.invoke(list[position].id)
                 }
             }
         }
+    }
+
+    fun setUnits(units: List<CourseUnit>) {
+        list.clear()
+        list.addAll(units)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(val binding: LayoutItemDefaultBinding) : RecyclerView.ViewHolder(binding.root)

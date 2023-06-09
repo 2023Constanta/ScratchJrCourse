@@ -8,7 +8,7 @@ import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnit
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTaskData
 
 fun UnitTaskEntity.toDomain(): CourseUnitTask =
-    CourseUnitTask(id, unitId, name)
+    CourseUnitTask(id, unitId, name, isQuestion)
 
 fun UnitTaskDataEntity.toDomain(): CourseUnitTaskData =
     CourseUnitTaskData(
@@ -18,7 +18,9 @@ fun UnitTaskDataEntity.toDomain(): CourseUnitTaskData =
         text,
         idOfMutual = idOfMutual,
         pics = listOf(),
-        arePicsVertical = arePicsVert
+        arePicsVertical = arePicsVert,
+        isQuestion = isQuestion,
+        answerText = answerText
     )
 
 fun UnitEntity.toDomain(): CourseUnit =

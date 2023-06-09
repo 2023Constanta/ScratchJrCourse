@@ -6,5 +6,6 @@ package com.example.scratchjrcourse.features.units.domain.domain.model
 data class CourseUnitTask(
     val id: Int,
     val unitId: Int,
-    val name: String
+    val name: String,
+    val isQuestion: Boolean
 )

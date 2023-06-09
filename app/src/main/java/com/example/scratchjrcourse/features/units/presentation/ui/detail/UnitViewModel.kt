@@ -5,13 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.scratchjrcourse.features.units.data.room.AppDb
-import com.example.scratchjrcourse.features.units.data.room.entity.UnitTaskDataEntity
-import com.example.scratchjrcourse.features.units.data.room.entity.UnitTaskDataPictureEntity
-import com.example.scratchjrcourse.features.units.data.room.entity.UnitTaskEntity
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTask
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTaskData
+import com.example.scratchjrcourse.features.units.domain.domain.model.DataPortion
 import com.example.scratchjrcourse.features.units.domain.domain.toDomain
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -33,6 +32,46 @@ class UnitViewModel(
     private var _listOfIndOfMutual = MutableLiveData<List<Int>>()
     val listOfIndOfMutual get() = _listOfIndOfMutual
 
+    private val _dataPortions = MutableLiveData<List<DataPortion>>()
+    val dataPortions get() = _dataPortions
+
+    /**
+     * Получение порций данных для задания раздела
+     */
+    fun getPortionsOfData(unitId: Int, taskId: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                // 1. Идет получение индексов общности. Для каждого экранчика только его данные
+                getListIndOfMutual(unitId, taskId)
+                
+                delay(500)
+                
+                val dataPortions = mutableListOf<DataPortion>()
+                // 2. Проходится по списку индексов
+                for (i in _listOfIndOfMutual.value!!) {
+                    
+                    Log.d(TAG, "getPortion: ИД ОБЩ: $i")
+                    
+                    getPortionOfDataByIdOfMutual(i, unitId, taskId)
+
+                    val dataPortion = _unitTaskDataWPics.value?.let { DataPortion(i, it) }
+
+                    Log.d(TAG, "getPortionsOfData: ДАН ПОРЦ: $dataPortion")
+                    if (dataPortion != null) {
+                        dataPortions.add(dataPortion)
+                    }
+                }
+
+                Log.d(TAG, "getPortionsOfData: СПИСОК ПОРЦ ДАН: $dataPortions")
+
+                withContext(Dispatchers.Main) {
+                    _dataPortions.value = dataPortions
+                }
+
+            }
+        }
+    }
+
     // Получение деталей блока
     fun getDetailsOfUnit(unitId: Int) {
         viewModelScope.launch {
@@ -45,8 +84,8 @@ class UnitViewModel(
         }
     }
 
-    // Получение списка индексом для экрана заданий блока
-    fun getListIndOfMutual(unitId: Int, taskId: Int) {
+    // Получение списка индексов для экрана заданий блока
+    private fun getListIndOfMutual(unitId: Int, taskId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val temp = db
@@ -61,12 +100,15 @@ class UnitViewModel(
     }
 
     // Получение данных для задания блока
-    fun getPortionOfDataByIdOfMutual(idOfMut: Int, unitId: Int = 0, taskId: Int = 0) {
+    private fun getPortionOfDataByIdOfMutual(idOfMut: Int, unitId: Int = 0, taskId: Int = 0) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val listOfMutualData =
                     db.getUnitTaskDataDao()
                         .getMutualTasks(idOfMut, taskId, unitId).map { it.toDomain() }
+
+
+                Log.d(TAG, "getPortionOfDataByIdOfMutual: $listOfMutualData")
 
                 val portion = mutableListOf<CourseUnitTaskData>()
 
@@ -78,12 +120,13 @@ class UnitViewModel(
                 }
 
                 withContext(Dispatchers.Main) {
-                    _unitTaskDataWPics.value = null
                     _unitTaskDataWPics.value = portion
                 }
 
             }
         }
     }
+
+    private val TAG = "UnitViewModel"
 
 }
