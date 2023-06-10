@@ -14,7 +14,7 @@ import com.example.scratchjrcourse.features.units.domain.domain.model.DataPortio
 
 
 class UnitTaskPortionAdapter : RecyclerView.Adapter<UnitTaskPortionAdapter.ViewHolder>() {
-    private lateinit var adapter: UnitTaskDataAdapter
+    //    private lateinit var adapter: UnitTaskDataAdapter
     private var portions: MutableList<DataPortion> = mutableListOf()
 
     override fun onCreateViewHolder(
@@ -37,7 +37,7 @@ class UnitTaskPortionAdapter : RecyclerView.Adapter<UnitTaskPortionAdapter.ViewH
     fun setData(list: List<DataPortion>) {
         portions.clear()
         portions.addAll(list)
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: ItemUnitTaskPortionBinding) :
@@ -45,7 +45,7 @@ class UnitTaskPortionAdapter : RecyclerView.Adapter<UnitTaskPortionAdapter.ViewH
         fun bind(dataList: List<CourseUnitTaskData>) {
             binding.apply {
                 rvPortion.layoutManager = LinearLayoutManager(binding.root.context)
-                adapter = UnitTaskDataAdapter()
+                val adapter = UnitTaskDataAdapter()
                 adapter.setData(dataList)
                 rvPortion.adapter = adapter
             }
@@ -93,12 +93,25 @@ class UnitTaskDataAdapter(
                 if (unitTaskData.pics?.isNotEmpty() == true) {
                     when (unitTaskData.pics.size) {
                         1 -> {
-                            ivTaskDataPicOne.load(unitTaskData.pics[0])
+                            ivTaskDataPic1.load(unitTaskData.pics[0])
                         }
 
                         2 -> {
-                            ivTaskDataPicOne.load(unitTaskData.pics[0])
-                            ivTaskDataPicTwo.load(unitTaskData.pics[1])
+                            ivTaskDataPic1.load(unitTaskData.pics[0])
+                            ivTaskDataPic2.load(unitTaskData.pics[1])
+                        }
+
+                        3 -> {
+                            ivTaskDataPic1.load(unitTaskData.pics[0])
+                            ivTaskDataPic2.load(unitTaskData.pics[1])
+                            ivTaskDataPic3.load(unitTaskData.pics[2])
+                        }
+
+                        4 -> {
+                            ivTaskDataPic1.load(unitTaskData.pics[0])
+                            ivTaskDataPic2.load(unitTaskData.pics[1])
+                            ivTaskDataPic3.load(unitTaskData.pics[2])
+                            ivTaskDataPic4.load(unitTaskData.pics[3])
                         }
                     }
                 }
