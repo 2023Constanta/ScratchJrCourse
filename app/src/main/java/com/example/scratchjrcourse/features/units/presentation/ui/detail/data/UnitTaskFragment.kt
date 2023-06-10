@@ -37,12 +37,17 @@ class UnitTaskFragment : Fragment() {
 
         Log.d(TAG, "args: ${args.unitId}, ${args.taskId}")
 
-        // Получение порций данных для экранчиков
-        unitViewModel.getPortionsOfDataForTask(unitId = args.unitId, taskId = args.taskId)
+        unitViewModel.dataPortionsLV.observe(viewLifecycleOwner, ::observePortions)
 
-        adapter = UnitTaskPortionAdapter()
-        binding?.wpCourseUnitTasks?.adapter = adapter
-        adapter.setData(unitViewModel.dataPortions)
+        // Получение порций данных для экранчиков
+        unitViewModel.getPortionsOfData(args.unitId, args.taskId)
+
+//        unitViewModel.getPortionsOfDataForTask(unitId = args.unitId, taskId = args.taskId)
+
+
+//        adapter = UnitTaskPortionAdapter()
+//        binding?.wpCourseUnitTasks?.adapter = adapter
+//        adapter.setData(unitViewModel.dataPortions)
 
 //        binding?.btnNextUnit?.setOnClickListener {
 //            var currPage = binding?.wpCourseUnitTasks?.currentItem
