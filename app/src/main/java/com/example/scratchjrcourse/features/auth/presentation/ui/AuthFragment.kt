@@ -57,15 +57,16 @@ class AuthFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "createUserWithEmail:success")
+                    Toast.makeText(
+                        activity,
+                        "Регистрация прошла успешно! Нажмите на кнопку входа",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     val user = auth.currentUser
                     updateUI(user)
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        context,
-                        "Authentication failed.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    Toast.makeText(activity, "Произошла ошибка!", Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }
@@ -78,13 +79,10 @@ class AuthFragment : Fragment() {
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
                     updateUI(user)
+                    Toast.makeText(activity, "Вход произошел успешно!", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        context,
-                        "Authentication failed.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    Toast.makeText(activity, "Произошла ошибка!", Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }
@@ -116,7 +114,6 @@ class AuthFragment : Fragment() {
             }
         }
     }
-
 
 
 }

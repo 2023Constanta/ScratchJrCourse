@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.profileFragment -> {
                         botNavView.visibility = View.VISIBLE
                     }
+
                     else -> {
                         botNavView.visibility = View.GONE
                     }
@@ -70,10 +71,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         when (navController.currentDestination?.id) {
-            R.id.unitsListFragment -> {
+            R.id.unitsListFragment,
+            R.id.authFragment -> {
                 exitProcess()
             }
-
             else -> super.onBackPressed()
         }
     }

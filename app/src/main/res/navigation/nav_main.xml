@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/unitContentFragment"
-        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.content.UnitContentFragment"
+        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.content.UnitTaskContentFragment"
         android:label="fragment_unit_content"
         tools:layout="@layout/fragment_unit_content">
         <argument
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/unitTaskFragment"
-        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.data.UnitTaskFragment"
+        android:name="com.example.scratchjrcourse.features.units.presentation.ui.detail.carousel.UnitTaskCarouselFragment"
         android:label="fragment_unit_task"
         tools:layout="@layout/fragment_unit_task">
         <argument
@@ -47,7 +47,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.studyapp.features.profile.presentation.ui.ProfileFragment"
-        android:label="Профиль" />
+        android:label="Профиль" >
+        <action
+            android:id="@+id/action_profileFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
     <fragment
         android:id="@+id/authFragment"
         android:name="com.example.studyapp.features.auth.presentation.ui.AuthFragment"

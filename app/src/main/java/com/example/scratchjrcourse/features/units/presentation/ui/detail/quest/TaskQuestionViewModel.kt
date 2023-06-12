@@ -21,20 +21,15 @@ class TaskQuestionViewModel(
     fun getQuestions(unitId: Int, taskId: Int, isQuestion: Boolean) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+
                 val questions = db.getUnitTaskDataDao().getQuestions(unitId, taskId, isQuestion)
-                    .map { it.toDomain() }
+                    .map { it.toDomain() }.map { question ->
+                        question.copy(pics = db.getPicturesDao().getPicturesByTasksData(question.id)
+                            ?.map { it.picture })
+                    }
 
-                val ready = mutableListOf<CourseUnitTaskData>()
-
-                for (q in questions) {
-                    val n = q.copy(
-                        pics = db.getPicturesDao().getPicturesByTasksData(q.id)
-                            ?.map { it.picture }
-                    )
-                    ready.add(n)
-                }
                 withContext(Dispatchers.Main) {
-                    _taskQuestions.value = ready
+                    _taskQuestions.value = questions
                 }
             }
         }
