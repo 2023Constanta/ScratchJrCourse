@@ -1,13 +1,29 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
+
+apply plugin: 'kotlin-kapt'
+
 
 android {
     namespace 'com.example.scratchjrcourse'
     compileSdk 33
 
+    buildFeatures { viewBinding true }
+
     defaultConfig {
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+
         applicationId "com.example.scratchjrcourse"
         minSdk 24
         targetSdk 33
@@ -24,15 +40,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
 dependencies {
+
+    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
+    def roomVersion = "2.4.3"
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -41,4 +60,39 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+//    implementation "com.github.lisawray.groupie:groupie:2.10.1"
+//    implementation "com.github.lisawray.groupie:groupie-viewbinding:2.10.1"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.0"
+
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate-full:1.5.9'
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9'
+
+    //Kotlin Coroutines
+    def kotlinCoroutines_version = "1.6.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutines_version"
+
+    implementation("io.coil-kt:coil:2.4.0")
+    // Koin
+    api "io.insert-koin:koin-android:3.1.5"
+    api 'io.insert-koin:koin-android-ext:3.0.2'
+    api "io.insert-koin:koin-core:3.1.5"
+    api "io.insert-koin:koin-android-compat:3.1.5"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.room:room-paging:$roomVersion"
 }

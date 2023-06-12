@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "517284494367",
+    "project_id": "scratchjrcourse-e8026",
+    "storage_bucket": "scratchjrcourse-e8026.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517284494367:android:a75953a40d9fe62fd4292a",
+        "android_client_info": {
+          "package_name": "com.example.scratchjrcourse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517284494367-52ci4v7holnoi90g18e0qhjj684r4pcg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjxW4A44SHdUFmjmNHwS_RzCSvXEf_b84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517284494367-52ci4v7holnoi90g18e0qhjj684r4pcg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
