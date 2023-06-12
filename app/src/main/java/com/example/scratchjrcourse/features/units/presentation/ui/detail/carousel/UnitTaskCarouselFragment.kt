@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.example.scratchjrcourse.R
 import com.example.scratchjrcourse.databinding.FragmentUnitTaskBinding
 import com.example.scratchjrcourse.features.units.domain.domain.model.DataPortion
 import com.example.scratchjrcourse.features.units.presentation.adapters.UnitTaskCarouselAdapter
@@ -26,8 +27,7 @@ class UnitTaskCarouselFragment : Fragment() {
     private lateinit var adapter: UnitTaskCarouselAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUnitTaskBinding.inflate(layoutInflater)
         return binding!!.root
@@ -39,6 +39,9 @@ class UnitTaskCarouselFragment : Fragment() {
         Log.d(TAG, "args: ${args.unitId}, ${args.taskId}")
 
         unitViewModel.dataPortions.observe(viewLifecycleOwner, ::observePortions)
+
+        val stringArray = resources.getStringArray(R.array.names_of_units)
+        binding?.tvCourseTitle?.setText(stringArray[args.unitId - 1])
 
         // Получение порций данных для экранчиков
         unitViewModel.getPortionsOfData(args.unitId, args.taskId)

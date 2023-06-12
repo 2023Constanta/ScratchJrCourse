@@ -10,6 +10,8 @@ import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.size.Scale
+import coil.transform.CircleCropTransformation
 import com.example.scratchjrcourse.R
 import com.example.scratchjrcourse.databinding.ItemTaskQuestionBinding
 import com.example.scratchjrcourse.features.units.domain.domain.model.CourseUnitTaskData
@@ -45,25 +47,19 @@ class TaskQuestionsAdapter : RecyclerView.Adapter<TaskQuestionsAdapter.ViewHolde
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: CourseUnitTaskData) {
             with(binding) {
-                ivQuestionPic.load(data.pics?.get(0))
+                ivQuestionPic.load(data.pics?.get(0)) {
+                    scale(Scale.FIT)
+                }
                 tvQuestionText.text = data.text
 
                 etQuestionAnswer.setOnEditorActionListener { v, actionId, event ->
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         val text = etQuestionAnswer.text.trim().toString()
-                        if (text == data.answerText) {
-                            Toast.makeText(
-                                binding.root.context,
-                                "Правильный ответ!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            Toast.makeText(
-                                binding.root.context,
-                                "Неправильный ответ! Попробуй еще раз!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                        Toast.makeText(
+                            binding.root.context,
+                            "Ваш ответ: \"$text\"!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     true
                 }

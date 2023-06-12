@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             R.id.authFragment -> {
                 exitProcess()
             }
+
             else -> super.onBackPressed()
         }
     }
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun exitProcess() {
-        AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this, R.style.CustomDialog)
             .setMessage(getString(R.string.exit_from_app_question))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 finish()
@@ -101,7 +102,9 @@ class MainActivity : AppCompatActivity() {
                 dialog.cancel()
             }
             .create()
-            .show()
+//            .show()
+
+        dialog.show()
     }
 
     companion object {

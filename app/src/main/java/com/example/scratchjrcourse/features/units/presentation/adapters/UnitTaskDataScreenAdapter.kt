@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.example.scratchjrcourse.R
 import com.example.scratchjrcourse.databinding.ItemCourseUnitTaskDataBinding
 import com.example.scratchjrcourse.databinding.ItemUnitTaskPortionBinding
@@ -95,7 +96,10 @@ class UnitTaskDataScreenAdapter(
                     when (unitTaskData.pics.size) {
 
                         1 -> {
-                            ivTaskDataPic1.load(unitTaskData.pics[0])
+                            ivTaskDataPic1.load(unitTaskData.pics[0]) {
+                                transformations(RoundedCornersTransformation(4.0f,  4.0f, 4.0f, 4.0f))
+                                scale(coil.size.Scale.FIT)
+                            }
                         }
 
                         2 -> {

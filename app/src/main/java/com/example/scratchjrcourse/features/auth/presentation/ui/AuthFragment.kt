@@ -30,12 +30,10 @@ class AuthFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-//        val navGraph = findNavController().navInflater.inflate(R.navigation.nav_main)
         val currentUser = auth.currentUser
 
         if (currentUser != null) {
             findNavController().navigate(R.id.action_authFragment_to_unitsListFragment)
-//            navGraph.setStartDestination(R.id.unitsListFragment)
         }
     }
 
@@ -102,15 +100,27 @@ class AuthFragment : Fragment() {
             signInButton.setOnClickListener {
                 val email = emailTextInput.editText?.text?.trim().toString()
                 val password = passwordTextInput.editText?.text?.trim().toString()
-                signIn(email, password)
-                findNavController().navigate(R.id.action_authFragment_to_unitsListFragment)
+                if (email.isNotEmpty() || password.isNotEmpty()) {
+                    signIn(email, password)
+                    findNavController().navigate(R.id.action_authFragment_to_unitsListFragment)
+                } else {
+                    Toast.makeText(activity, "Почта и/или пароль не введены!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
             }
 
             signUpButton.setOnClickListener {
 
                 val email = emailTextInput.editText?.text?.trim().toString()
                 val password = passwordTextInput.editText?.text?.trim().toString()
-                createAccount(email, password)
+
+                if (email.isNotEmpty() || password.isNotEmpty()) {
+                    createAccount(email, password)
+                } else {
+                    Toast.makeText(activity, "Почта и/или пароль не введены!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }

@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/field_email"
+            app:hintTextColor="@color/black"
             app:layout_constraintBottom_toTopOf="@id/passwordTextInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,7 @@
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:lines="1" />
@@ -35,6 +37,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTextInput"
             android:layout_width="wrap_content"
+            app:hintTextColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_space"
             android:hint="@string/field_password"
@@ -47,6 +50,7 @@
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:lines="1" />
@@ -67,7 +71,7 @@
 
         <Button
             android:id="@+id/signUpButton"
-            style="@style/GlobalTextInputStyle.Secondary.Big"
+            style="@style/GlobalTextInputStyle.Big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/action_create_account"

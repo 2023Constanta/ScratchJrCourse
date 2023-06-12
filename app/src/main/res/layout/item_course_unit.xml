@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    android:id="@+id/levelItem"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:strokeWidth="0dp"
-    android:layout_marginTop="20dp">
+    android:id="@+id/levelItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    app:strokeWidth="0dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,24 +20,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="46dp"
             android:layout_marginEnd="46dp"
-            app:cornerRadius="12dp"
-            tools:text="Блок 1. Знакомство"
             android:textAlignment="viewStart"
-            android:textColor="@color/white"
             android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:textSize="16sp"/>
+            app:cornerRadius="12dp"
+            tools:text="Блок 1. Знакомство" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lessonsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:spanCount="3"
             tools:itemCount="5"
-            tools:listitem="@layout/item_course_unit_task"
-            android:nestedScrollingEnabled="false" />
+            tools:listitem="@layout/item_course_unit_task" />
 
     </LinearLayout>
 
