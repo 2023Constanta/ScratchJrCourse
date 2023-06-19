@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             R.id.authFragment -> {
                 exitProcess()
             }
-
             else -> super.onBackPressed()
         }
     }
