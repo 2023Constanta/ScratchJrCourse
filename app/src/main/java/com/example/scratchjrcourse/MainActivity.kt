@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.profileFragment -> {
                         botNavView.visibility = View.VISIBLE
                     }
+
                     else -> {
                         botNavView.visibility = View.GONE
                     }
@@ -70,10 +71,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         when (navController.currentDestination?.id) {
-            R.id.unitsListFragment -> {
+            R.id.unitsListFragment,
+            R.id.authFragment -> {
                 exitProcess()
             }
-
             else -> super.onBackPressed()
         }
     }
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun exitProcess() {
-        AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this, R.style.CustomDialog)
             .setMessage(getString(R.string.exit_from_app_question))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 finish()
@@ -100,7 +101,9 @@ class MainActivity : AppCompatActivity() {
                 dialog.cancel()
             }
             .create()
-            .show()
+//            .show()
+
+        dialog.show()
     }
 
     companion object {

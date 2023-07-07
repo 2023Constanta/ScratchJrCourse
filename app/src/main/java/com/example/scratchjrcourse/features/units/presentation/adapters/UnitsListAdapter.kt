@@ -30,7 +30,6 @@ class UnitsListAdapter(
         with(holder.binding) {
             with(list[position]) {
                 tvName.text = name
-                tvDescription.text = description
 
                 tvName.setOnClickListener {
                     onItemClicked.invoke(list[position].id)

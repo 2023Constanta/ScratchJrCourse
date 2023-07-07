@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    android:id="@+id/levelItem"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:strokeWidth="0dp"
-    android:layout_marginTop="20dp">
+    android:id="@+id/levelItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    app:cardCornerRadius="4dp"
+    app:strokeWidth="4dp">
+
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvUnitTask"
+        style="@style/SubTitleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="1.1. Изучаем"
-        android:id="@+id/tvUnitTask"/>
+        android:padding="4dp"
+        tools:text="1.1. Изучаем" />
+
 </com.google.android.material.card.MaterialCardView>

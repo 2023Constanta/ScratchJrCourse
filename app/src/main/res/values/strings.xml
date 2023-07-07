@@ -16,4 +16,12 @@
     <string name="action_logout">Выйти</string>
     <string name="field_created_at">Создан</string>
     <string name="field_username">Имя</string>
+
+    <string-array name="names_of_units">
+        <item>Знакомство с интерфейсом ScratchJr</item>
+        <item>Африканские гонки</item>
+        <item>Волшебные приключения</item>
+        <item>Бег с препятствиями</item>
+        <item>Найди отличие</item>
+    </string-array>
 </resources>

@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".features.units.presentation.ui.list.UnitsListFragment">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTasks"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/layout_item_default" />
